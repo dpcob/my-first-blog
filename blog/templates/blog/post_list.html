@@ -4,12 +4,25 @@
     </head>
     <body>
         <div>
+            <div>
+                <h1><a href="/">DjangoGirlsブログ</a></h1>
+                <h5><a href="http://127.0.0.1:8000/admin/">管理画面</a></h5>
+            </div>
+        {% for post in posts %}
+            <div>
+                <p>published:{{ post.published_date }}</p>
+                <h2><a href="">{{ post.title }}</a></h2>
+                <p>{{ post.text|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
+        </div>
+        <!-- <div>
             <h1><a href="/">DjangoGirlsブログ</a></h1>
         </div>
         <div>
             <p>published: 2022/09/11, 09:31</p>
             <h2><a href="">My first post</a></h2>
             <p>こんにちは　よろしくです！</p>
-        </div>
+        </div> -->
     </body>    
 </html>
