@@ -2,24 +2,46 @@
     color: teal;
     font-family: 'Lobster';
 } */
-
-.page-header {
-    background-color: #C25100;
-    margin-top: 0;
-    padding: 20px 20px 20px 40px;
+html {
+	overflow: auto;
+}
+body {
+	overflow: hidden;
 }
 
-.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-    color: #ffffff;
-    font-size: 36pt;
+.page-header {
+    background-color: #4f88bd;
+    margin-top: 0;
+    height: 60px;
+	margin-left: -500%;
+	margin-right: -500%;
+	padding-left: 500%;
+	padding-right: 500%;
+    /* padding: 10px 10px 10px 40px; */
+    position:fixed;
+    z-index:100;
+}
+
+/* .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active { */
+.page-header a, .page-header a:visited, .page-header a:active {
+    color: #a2c0f7;
+    font-size: 12pt;
+    text-decoration: none;
+}
+
+.titletext{
+    margin-top:30px;   
+    color: #a2c0f7;
+    font-size: 30pt;
     text-decoration: none;
 }
 
 .content {
     margin-left: 40px;
+    padding-top: 70px;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, .titletext {
     font-family: 'Lobster', cursive;
 }
 

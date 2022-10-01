@@ -1,7 +1,7 @@
 {% load static %}
 <html>
     <head>
-        <title>おらのブログ</title>
+        <title>Wordcloud Lab.</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -11,10 +11,16 @@
     <body>
         <div>
             <div class="page-header">
-                <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-                <h1><a href="/">DjangoGirlsブログ</a></h1>
-                <h4><a href="admin/">管理画面</a></h4>
-                <h3><a href="https://www.pythonanywhere.com/"> Pythonanywhere </a></h3>
+                <nobr class="titletext">
+                    &nbsp;&nbsp;Graduation Work!&emsp;
+                </nobr>
+                <!-- <h1><a href="/">&nbsp;&nbsp;Graduation Work!</a> -->
+                <a class="btn btn-primary" href="/"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;home</a>
+                <a class="btn btn-primary" href="/admin/"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;admin</a>
+                    <!-- &nbsp; 半角スペース分の隙間  &emsp;全角スペース分の隙間 -->
+                <a href="{% url 'post_new' %}" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;New!</a>
+                    <!-- <h4><a href="admin/">admin</a></h4> -->
+                    <!-- <h3><a href="https://www.pythonanywhere.com/"> Not Constructed </a></h3> -->
             </div>
             <div class="content container">
                 <div class="row">
