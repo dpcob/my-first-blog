@@ -1,7 +1,6 @@
 #from time import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from numpy import dtype
 from .models import Post
 from .forms import PostForm
 from django.views.generic import UpdateView
@@ -10,6 +9,8 @@ from django.contrib.auth.models import User
 
 from janome.tokenizer import Tokenizer
 from wordcloud import WordCloud
+from django.conf import settings
+
 
 def wordcloudmake(text, pk):
     lines = text.split("\r\n")
@@ -27,7 +28,10 @@ def wordcloudmake(text, pk):
     
     words = ' '.join(words_list)
     # words = " ".join(tokens)
-    font_path=r'C:\Windows\Fonts\Meiryo.ttc'
+    if settings.DEBUG:
+        font_path=r'C:\Windows\Fonts\Meiryo.ttc'
+    else:
+        font_path=r'/usr/share/fonts/truetype/fonts-japanese-gothic.ttf'
     wordcloud = WordCloud(background_color=(240,255,255),
                           font_path=font_path,
                           width=800,
