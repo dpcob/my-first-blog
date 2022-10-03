@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from janome.tokenizer import Tokenizer
 from wordcloud import WordCloud
 from django.conf import settings
-
+import os
 
 def wordcloudmake(text, pk):
     lines = text.split("\r\n")
@@ -43,8 +43,9 @@ def wordcloudmake(text, pk):
                         #   contour_color="black",
                           stopwords=set(stop_words)).generate(words)
     # wordcloud = WordCloud(font_path=r'C:\Windows\Fonts\Meiryo.ttc').generate(words)
-    fn = MEDIA_ROOT+ r"/wordcloud"+str(pk)+".png"
-    wordcloud.to_file(fn)
+    fn = "wordcloud"+str(pk)+".png"
+    fnp = os.path.join(MEDIA_ROOT, fn)
+    wordcloud.to_file(fnp)
     return fn
     # wordcloud.to_file('./media/wordcloud'+str(pk)+'.png')
 
@@ -78,7 +79,8 @@ def post_wc(request, pk):
     txt = post.text
     wordcloudmake(txt, pk)
     fn = r"/wordcloud"+str(pk)+".png"
-    post.thumb = MEDIA_ROOT+fn
+    fnp = os.path.join(MEDIA_ROOT, fn)
+    post.thumb = fnp
     post.save()
     return render(request, 'blog/post_detail.html',{'post': post})
 
