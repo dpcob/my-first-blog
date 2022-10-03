@@ -43,7 +43,7 @@ def wordcloudmake(text, pk):
                         #   contour_color="black",
                           stopwords=set(stop_words)).generate(words)
     # wordcloud = WordCloud(font_path=r'C:\Windows\Fonts\Meiryo.ttc').generate(words)
-    fn = MEDIA_ROOT+"\wordcloud"+str(pk)+".png"
+    fn = MEDIA_ROOT+ r"/wordcloud"+str(pk)+".png"
     wordcloud.to_file(fn)
     return fn
     # wordcloud.to_file('./media/wordcloud'+str(pk)+'.png')
@@ -77,7 +77,7 @@ def post_wc(request, pk):
     post = get_object_or_404(Post, pk=pk)
     txt = post.text
     wordcloudmake(txt, pk)
-    fn = r"\wordcloud"+str(pk)+".png"
+    fn = r"/wordcloud"+str(pk)+".png"
     post.thumb = MEDIA_ROOT+fn
     post.save()
     return render(request, 'blog/post_detail.html',{'post': post})
