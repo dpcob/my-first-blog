@@ -78,7 +78,7 @@ def post_wc(request, pk):
     post = get_object_or_404(Post, pk=pk)
     txt = post.text
     wordcloudmake(txt, pk)
-    fn = r"/wordcloud"+str(pk)+".png"
+    fn = "wordcloud"+str(pk)+".png"
     fnp = os.path.join(MEDIA_ROOT, fn)
     post.thumb = fnp
     post.save()
