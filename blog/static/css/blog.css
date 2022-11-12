@@ -9,6 +9,12 @@ body {
 	overflow: hidden;
 }
 
+.detail_btn {
+    color: #a2c0f7;
+    font-size: 16pt;
+    background-color: #4f88bd;
+}
+
 .page-header {
     background-color: #4f88bd;
     margin-top: 0;
@@ -69,5 +75,7 @@ h1, h2, h3, h4, h5, .titletext {
 }
 
 .post h2 a, .post h2 a:visited {
-    color: #000000;
+    color: #a2c0f7;
 }
+
+

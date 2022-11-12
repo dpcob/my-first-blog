@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from dg.settings import MEDIA_ROOT
-from .models import Post
-from .forms import PostForm
+from .models import Post, Simg
+from .forms import PostForm, SimgForm
 from django.views.generic import UpdateView
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -13,6 +13,9 @@ from janome.tokenizer import Tokenizer
 from wordcloud import WordCloud
 from django.conf import settings
 import os
+import cv2
+from tensorflow.python.keras.models import load_model
+import numpy as np
 
 def wordcloudmake(text, pk):
     lines = text.split("\r\n")
@@ -86,7 +89,7 @@ def post_wc(request, pk):
 
 def post_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -96,6 +99,63 @@ def post_new(request):
     else:
         form = PostForm()
     return render(request, 'blog/post_new.html', {'form': form})
+
+def souun_new(request):
+    # simg = Simg(updated_by=request.user)
+    if request.method == "POST":
+        form = SimgForm(request.POST, request.FILES)
+        if form.is_valid():
+            simg = form.save(commit=False)
+            # post.author = request.user
+            # post.published_date = timezone.now()
+            simg.save()
+            return redirect('souun')
+    else:
+        form = SimgForm()
+    return render(request, 'blog/souun_new.html', {'form': form})
+
+def souun(request):
+    simg = Simg.objects.all()
+    return render(request, 'blog/souun.html', {'simg': simg})
+
+def tfjdg(imgf, jdg):
+    IS = 224
+    classes = ["双雲", "パンピー"]
+    
+    fnp = os.path.join(MEDIA_ROOT, "souun.h5")
+    #modelへ保存データを読み込み
+    model = load_model(fnp)
+
+    model.summary()
+
+    fnp = os.path.join(MEDIA_ROOT, str(imgf))
+    iarry = cv2.imread(fnp, cv2.IMREAD_GRAYSCALE)
+    iarry_resize = cv2.resize(iarry, (IS, IS))
+
+    X = []
+    X.append(iarry_resize)
+    X = np.array(X)
+
+    result = model.predict([X])[0]
+    predicted = result.argmax()
+    percentage = int(result[predicted] * 100)
+    print(predicted)
+    jdg = '{0}({1}%)'.format(classes[predicted], percentage)
+
+    # jdg = "Change String"
+    return jdg
+
+def jdg_souun(request, pk):
+    simg = get_object_or_404(Simg, pk=pk)
+    simg.jdg = tfjdg(simg.imgf, simg.jdg)
+    simg.save()
+    simg = Simg.objects.all()
+    return render(request, 'blog/souun.html', {'simg': simg})
+    # return render(request, 'blog/souun_jdg.html', {'simg': simg})
+
+# def souun_detail(request, pk):
+#     simg = get_object_or_404(Simg, pk=pk)
+#     return render(request, 'blog/souun_detail.html', {'simg': simg})
 
 class PostUpdate(UpdateView):
     template_name = 'blog/post_edit.html'

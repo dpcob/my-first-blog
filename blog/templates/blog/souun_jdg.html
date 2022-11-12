@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        <a class="btn btn-default" href="/souun/"><span class="glyphicon glyphicon-home"></span></a>
+        <h2>{{ simg.jdg }}</h2>
+        <img src="{{ simg.imgf.url }}" class="img-thumbnail" />
+    </div>
+{% endblock %}

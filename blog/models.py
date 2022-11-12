@@ -21,3 +21,8 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     # https://kosuke-space.com/django-user-model-reference
+    
+class Simg(models.Model):
+    jdg = models.CharField(max_length=200, default="ボタンで判定します")
+    imgf = models.ImageField(default="hihou.gif")
+    imgf = models.ImageField()

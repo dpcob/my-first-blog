@@ -1,12 +1,14 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-    {% for post in posts %}
+    <a class="btn btn-primary" href="{% url 'post_new' %}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New!</a><br><br>
+    <h1>Word Cloud</h1><br>
+    {% for post in posts reversed %}
     <div class="post">
         <div class="date">
             <p>published:{{ post.published_date }}</p>
         </div>
-        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        <h2><a class="btn btn-primary detail_btn" href="{% url 'post_detail' pk=post.pk %}"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;{{ post.title }}</a></h2>
         <img src="{{ post.thumb.url }}" class="img-thumbnail" />
         <p>{{ post.text|linebreaksbr }}</p>
     </div>

@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <a class="btn btn-primary" href="{% url 'souun_new' %}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New!</a><br><br>
+    <h1>Judge of Souun Takeda!（武田双雲　真贋判定）</h1><br><br>
+    {% for su in simg reversed %}
+    <div class="post">
+        <p>{{ su.jdg }} <a class="btn btn-default" href="{% url 'jdg_souun' pk=su.pk %}"><span class="glyphicon glyphicon-tree-deciduous">双雲度判定</span></a></p>
+        <img src="{{ su.imgf.url }}" class="img-thumbnail" />
+    </div>
+    {% endfor %}
+{% endblock %}

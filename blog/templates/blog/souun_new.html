@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <a class="btn btn-default" href="/souun/"><span class="glyphicon glyphicon-home"></span></a>
+    <h2>武田双雲判定　New Content!</h2>
+    <form method="POST" class="simg-form" enctype="multipart/form-data">{% csrf_token %}
+        <!-- <img src="{{ form.thumb.url }}" class="img-thumbnail" /> -->
+        {{ form.as_p }}
+        <img src="{{ simg.imgf.url }}" class="img-thumbnail" />
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
