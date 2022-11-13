@@ -57,7 +57,7 @@ def wordcloudmake(text, pk):
     # fnp = os.path.join(MEDIA_ROOT, fn)
     fnp = os.path.join(media_path, fn)
     wordcloud.to_file(fnp)
-    return fn
+    return fnp
     # wordcloud.to_file('./media/wordcloud'+str(pk)+'.png')
 
 
@@ -88,9 +88,9 @@ def post_detail(request, pk):
 def post_wc(request, pk):
     post = get_object_or_404(Post, pk=pk)
     txt = post.text
-    wordcloudmake(txt, pk)
-    fn = "wordcloud"+str(pk)+".png"
-    fnp = os.path.join(media_path, fn)
+    fnp = wordcloudmake(txt, pk)
+    # fn = "wordcloud"+str(pk)+".png"
+    # fnp = os.path.join(media_path, fn)
     post.thumb = fnp
     post.save()
     return render(request, 'blog/post_detail.html',{'post': post})
