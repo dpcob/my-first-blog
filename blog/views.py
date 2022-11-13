@@ -2,7 +2,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
-from dg.settings import MEDIA_ROOT
+from dg.settings import MEDIA_ROOT, MEDIA_URL
 from .models import Post, Simg
 from .forms import PostForm, SimgForm
 from django.views.generic import UpdateView
@@ -16,6 +16,13 @@ import os
 import cv2
 from tensorflow.python.keras.models import load_model
 import numpy as np
+
+if settings.DEBUG:
+    font_path=r'C:\Windows\Fonts\Meiryo.ttc'
+    media_path = MEDIA_ROOT
+else:
+    font_path=r'/usr/share/fonts/truetype/fonts-japanese-gothic.ttf'
+    media_path = MEDIA_URL
 
 def wordcloudmake(text, pk):
     lines = text.split("\r\n")
@@ -33,10 +40,10 @@ def wordcloudmake(text, pk):
     
     words = ' '.join(words_list)
     # words = " ".join(tokens)
-    if settings.DEBUG:
-        font_path=r'C:\Windows\Fonts\Meiryo.ttc'
-    else:
-        font_path=r'/usr/share/fonts/truetype/fonts-japanese-gothic.ttf'
+    # if settings.DEBUG:
+    #     font_path=r'C:\Windows\Fonts\Meiryo.ttc'
+    # else:
+    #     font_path=r'/usr/share/fonts/truetype/fonts-japanese-gothic.ttf'
     wordcloud = WordCloud(background_color=(240,255,255),
                           font_path=font_path,
                           width=800,
@@ -47,7 +54,8 @@ def wordcloudmake(text, pk):
                           stopwords=set(stop_words)).generate(words)
     # wordcloud = WordCloud(font_path=r'C:\Windows\Fonts\Meiryo.ttc').generate(words)
     fn = "wordcloud"+str(pk)+".png"
-    fnp = os.path.join(MEDIA_ROOT, fn)
+    # fnp = os.path.join(MEDIA_ROOT, fn)
+    fnp = os.path.join(media_path, fn)
     wordcloud.to_file(fnp)
     return fn
     # wordcloud.to_file('./media/wordcloud'+str(pk)+'.png')
@@ -82,7 +90,7 @@ def post_wc(request, pk):
     txt = post.text
     wordcloudmake(txt, pk)
     fn = "wordcloud"+str(pk)+".png"
-    fnp = os.path.join(MEDIA_ROOT, fn)
+    fnp = os.path.join(media_path, fn)
     post.thumb = fnp
     post.save()
     return render(request, 'blog/post_detail.html',{'post': post})
@@ -122,13 +130,13 @@ def tfjdg(imgf, jdg):
     IS = 224
     classes = ["双雲", "パンピー"]
     
-    fnp = os.path.join(MEDIA_ROOT, "souun.h5")
+    fnp = os.path.join(media_path, "souun.h5")
     #modelへ保存データを読み込み
     model = load_model(fnp)
 
     model.summary()
 
-    fnp = os.path.join(MEDIA_ROOT, str(imgf))
+    fnp = os.path.join(media_path, str(imgf))
     iarry = cv2.imread(fnp, cv2.IMREAD_GRAYSCALE)
     iarry_resize = cv2.resize(iarry, (IS, IS))
 
