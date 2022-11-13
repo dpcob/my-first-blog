@@ -24,7 +24,7 @@ else:
     font_path=r'/usr/share/fonts/truetype/fonts-japanese-gothic.ttf'
     media_path = MEDIA_URL
 
-def wordcloudmake(text, pk):
+def wordcloudmake(text, pk, post):
     lines = text.split("\r\n")
     words_list = []
     # tk = Tokenizer(wakati=True)
@@ -57,7 +57,9 @@ def wordcloudmake(text, pk):
     # fnp = os.path.join(MEDIA_ROOT, fn)
     fnp = os.path.join(media_path, fn)
     wordcloud.to_file(fnp)
-    return fnp
+    post.thumb =fnp
+    post.save()
+    # return fnp
     # wordcloud.to_file('./media/wordcloud'+str(pk)+'.png')
 
 
@@ -88,11 +90,11 @@ def post_detail(request, pk):
 def post_wc(request, pk):
     post = get_object_or_404(Post, pk=pk)
     txt = post.text
-    fnp = wordcloudmake(txt, pk)
+    wordcloudmake(txt, pk, post)
     # fn = "wordcloud"+str(pk)+".png"
     # fnp = os.path.join(media_path, fn)
-    post.thumb = fnp
-    post.save()
+    # post.thumb = fnp
+    # post.save()
     return render(request, 'blog/post_detail.html',{'post': post})
 
 def post_new(request):
