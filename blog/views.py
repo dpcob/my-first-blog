@@ -93,7 +93,8 @@ def post_wc(request, pk):
     wordcloudmake(txt, pk)
     fn = "wordcloud"+str(pk)+".png"
     fnp = os.path.join(media_path, fn)
-    post.thumb = fnp
+    post.thumb = fn
+    # post.thumb = fnp
     post.save()
     return render(request, 'blog/post_detail.html',{'post': post})
 
