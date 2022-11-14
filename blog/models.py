@@ -24,5 +24,6 @@ class Post(models.Model):
     
 class Simg(models.Model):
     jdg = models.CharField(max_length=200, default="ボタンで判定します")
-    imgf = models.ImageField(default="hihou.gif")
+    imgf = models.ImageField()
+    # imgf = models.ImageField(default="hihou.gif")
 
