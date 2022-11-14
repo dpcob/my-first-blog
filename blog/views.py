@@ -22,7 +22,7 @@ if settings.DEBUG:
     media_path = MEDIA_ROOT
 else:
     font_path=r'/usr/share/fonts/truetype/fonts-japanese-gothic.ttf'
-    media_path = MEDIA_ROOT
+    media_path = "/home/dpcob/dpcob.pythonanywhere.com/media/"
 
 def wordcloudmake(text, pk, post):
     lines = text.split("\r\n")
