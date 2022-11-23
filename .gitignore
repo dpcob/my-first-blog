@@ -14,3 +14,11 @@ local_settings.py
 *.jpeg
 *.webp
 *.h5
+*.aa
+*.ab
+*.ac
+*.ad
+*.ae
+*.af
+*.ag
+*.zip

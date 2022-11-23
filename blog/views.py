@@ -56,7 +56,7 @@ def wordcloudmake(text, pk):
     fn = "wordcloud"+str(pk)+".png"
     # fnp = os.path.join(MEDIA_ROOT, fn)
     fnp = os.path.join(media_path, fn)
-    wordcloud.to_file(fnp)
+    wordcloud.to_file(fnp) # ローカルで使うときはパスが必要
     # post.thumb = fnp
     # post.save()
     # return fnp
@@ -92,8 +92,8 @@ def post_wc(request, pk):
     txt = post.text
     wordcloudmake(txt, pk)
     fn = "wordcloud"+str(pk)+".png"
-    fnp = os.path.join(media_path, fn)
-    post.thumb = fn
+    # fnp = os.path.join(media_path, fn)
+    post.thumb = fn # DB登録はパスを省く
     # post.thumb = fnp
     post.save()
     return render(request, 'blog/post_detail.html',{'post': post})

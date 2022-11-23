@@ -71,6 +71,7 @@ h1, h2, h3, h4, h5, .titletext {
 }
 
 .post {
+    font-size: 20pt;
     margin-bottom: 70px;
 }
 
